@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import InputElement from "./components/InputComponents/InputElement";
+import OutputUIElement from "./components/OutputComponents/OutputUlElement";
+import "./App.css";
 
 function App() {
+  const [enteredDetails, setEnteredDetails] = useState([]);
+
+  const userDetailValueHandler = (userDetails) => {
+    setEnteredDetails((previousDetails) => {
+      let updatedDetails = [...previousDetails, userDetails];
+      return updatedDetails;
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <section className="inputElement">
+        <InputElement onAddDetails={userDetailValueHandler}></InputElement>
+      </section>
+      <section className="useListSection">
+        <OutputUIElement userList={enteredDetails}></OutputUIElement>
+      </section>
     </div>
   );
 }
