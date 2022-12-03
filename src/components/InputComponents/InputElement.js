@@ -1,5 +1,6 @@
 import React from "react";
 import InputForm from "./InputForm";
+import Wrapper from "../Helpers/Wrapper";
 import "./InputElement.css";
 
 const InputElement = (props) => {
@@ -7,9 +8,11 @@ const InputElement = (props) => {
     props.onAddDetails(userDetails);
   };
   return (
-    <div className="inputEl">
-      <InputForm onAdd={userDetailHandler}></InputForm>
-    </div>
+    <Wrapper>
+      <div className="inputEl">
+        <InputForm onAdd={userDetailHandler}></InputForm>
+      </div>
+    </Wrapper>
   );
 };
 

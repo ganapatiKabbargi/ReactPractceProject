@@ -1,14 +1,16 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import ButtonElement from "../ButtonComponent/ButtonElement";
 import Card from "../CardComponent/Card";
 import "./WarningElement.css";
 
 const WarningElement = (props) => {
-  //   const clickHandler = () => {
-  //     props.onClicking();
-  //   };
-  return (
-    <div className="backdrop" onClick={props.onConfirm}>
+  const Backdrop = (props) => {
+    return <div className="backdrop" onClick={props.onConfirm}></div>;
+  };
+
+  const ModalOverlay = (props) => {
+    return (
       <Card className="modal">
         <div className="header">
           <h2>{props.title}</h2>
@@ -21,7 +23,23 @@ const WarningElement = (props) => {
           </ButtonElement>
         </div>
       </Card>
-    </div>
+    );
+  };
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <Backdrop onConfirm={props.onConfirm} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay
+          title={props.title}
+          message={props.message}
+          onConfirm={props.onConfirm}
+        />,
+        document.getElementById("overlay-root")
+      )}
+    </React.Fragment>
   );
 };
 
